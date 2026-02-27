@@ -1,58 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  posts: [
-    {
-      id: "1",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "12",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "2",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "3",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "4",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "5",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "7",
-      title: "Welcome Blog",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-    {
-      id: "6",
-      title: "Welcome Blog",
-      author: "Sarthak Bhandari",
-      category: "General",
-      content: "This is your first blog post.",
-      likes: 0,
-    },
-  ],
+  posts: [],
 };
 
 export const blogSlice = createSlice({
