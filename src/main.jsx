@@ -5,12 +5,15 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store.js";
+import { NotificationProvider } from "./contexts/NotificationContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <StrictMode>
       <Provider store={store}>
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </Provider>
     </StrictMode>
   </BrowserRouter>,

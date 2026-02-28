@@ -13,6 +13,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { addPost } from "../features/blogs/blogSlice";
+import { useNotificationContext } from "../contexts/NotificationContext";
 
 export const NewBlog = () => {
   const [title, setTitle] = useState("");
@@ -20,6 +21,8 @@ export const NewBlog = () => {
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+
+  const { showNotification } = useNotificationContext();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +38,8 @@ export const NewBlog = () => {
       !content.trim()
     ) {
       setError("All fields are required");
+      console.log("Reached here");
+      showNotification("All fields are required", "error");
       return;
     }
 
@@ -57,6 +62,8 @@ export const NewBlog = () => {
 
     // Navigate to home
     navigate("/");
+
+    showNotification("Blog post created successfully!", "success");
   };
 
   const handleCancel = () => {
@@ -83,7 +90,6 @@ export const NewBlog = () => {
               variant="outlined"
               fullWidth
               margin="normal"
-              required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -93,12 +99,11 @@ export const NewBlog = () => {
               variant="outlined"
               fullWidth
               margin="normal"
-              required
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
             />
 
-            <FormControl fullWidth margin="normal" required>
+            <FormControl fullWidth margin="normal">
               <InputLabel id="category-label">Category</InputLabel>
               <Select
                 labelId="category-label"
@@ -123,7 +128,6 @@ export const NewBlog = () => {
               variant="outlined"
               fullWidth
               margin="normal"
-              required
               multiline
               rows={6}
               value={content}
