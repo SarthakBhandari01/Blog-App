@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { BlogDetails } from "./pages/BlogDetails";
 import { Home } from "./pages/Home";
 import { NewBlog } from "./pages/NewBlog";
+import EditBlog from "./pages/EditBlog";
 
 export const AppRouter = () => {
   return (
@@ -9,6 +10,7 @@ export const AppRouter = () => {
       <Route path="/*" element={<Home />} />
       <Route path="/new" element={<NewBlog />} />
       <Route path="/:id" element={<BlogDetails />} />
+      <Route path="/edit/:id" element={<EditBlog />} />
     </Routes>
   );
 };
