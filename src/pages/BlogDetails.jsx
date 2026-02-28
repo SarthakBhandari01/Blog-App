@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Edit2, Trash2, Heart } from "lucide-react";
 import { useState } from "react";
-import { likePost, unlikePost } from "../features/blogs/blogSlice";
+import { likePost, unlikePost, deletePost } from "../features/blogs/blogSlice";
+import ConfirmDialog from "../components/ConfirmDialog";
+import { useNotificationContext } from "../contexts/NotificationContext";
 
 export const BlogDetails = () => {
   const { id } = useParams();
@@ -12,6 +14,7 @@ export const BlogDetails = () => {
   const post = posts.find((p) => p.id === id);
   const [liked, setLiked] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const { showNotification } = useNotificationContext();
 
   const handleLike = () => {
     if (!liked) {
@@ -21,6 +24,12 @@ export const BlogDetails = () => {
       dispatch(unlikePost(id));
       setLiked(false);
     }
+  };
+
+  const handleDelete = () => {
+    dispatch(deletePost(id));
+    navigate("/");
+    showNotification("Blog deleted successfully", "success");
   };
 
   if (!post) {
@@ -34,15 +43,17 @@ export const BlogDetails = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate(`/edit/${post.id}`)}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-              title="Edit story"
+              className="text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
+              title="Edit Blog"
+              type="button"
             >
               <Edit2 className="w-5 h-5" />
             </button>
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="text-gray-600 hover:text-red-600 transition-colors"
-              title="Delete story"
+              className="text-gray-600 hover:text-red-600 transition-colors cursor-pointer"
+              title="Delete Blog"
+              type="button"
             >
               <Trash2 className="w-5 h-5" />
             </button>
@@ -94,7 +105,8 @@ export const BlogDetails = () => {
         <div className="flex items-center gap-6 py-6 border-y border-gray-200">
           <button
             onClick={handleLike}
-            className={`flex items-center gap-2 transition-all ${
+            type="button"
+            className={`flex items-center gap-2 transition-all cursor-pointer ${
               liked ? "text-red-600" : "text-gray-600 hover:text-red-600"
             }`}
           >
@@ -103,6 +115,16 @@ export const BlogDetails = () => {
           </button>
         </div>
       </article>
+
+      <ConfirmDialog
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={handleDelete}
+        title="Delete Blog"
+        message="Are you sure you want to delete this blog? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
     </div>
   );
 };
