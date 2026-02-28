@@ -17,7 +17,7 @@ export const blogSlice = createSlice({
         content: action.payload.content,
         likes: 0,
       };
-      state.posts.push(post);
+      state.posts.unshift(post);
     },
 
     updatePost: (state, action) => {
