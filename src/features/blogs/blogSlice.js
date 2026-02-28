@@ -39,6 +39,14 @@ export const blogSlice = createSlice({
       }
     },
 
+    unlikePost: (state, action) => {
+      const id = action.payload;
+      const existingPost = state.posts.find((post) => post.id === id);
+      if (existingPost && existingPost.likes > 0) {
+        existingPost.likes -= 1;
+      }
+    },
+
     deletePost: (state, action) => {
       const id = action.payload;
       state.posts = state.posts.filter((post) => post.id !== id);
@@ -46,6 +54,7 @@ export const blogSlice = createSlice({
   },
 });
 
-export const { addPost, updatePost, likePost, deletePost } = blogSlice.actions;
+export const { addPost, updatePost, likePost, unlikePost, deletePost } =
+  blogSlice.actions;
 
 export default blogSlice.reducer;

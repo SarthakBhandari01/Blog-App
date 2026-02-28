@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Edit2, Trash2, Heart } from "lucide-react";
 import { useState } from "react";
-import { likePost } from "../features/blogs/blogSlice";
+import { likePost, unlikePost } from "../features/blogs/blogSlice";
 
 export const BlogDetails = () => {
   const { id } = useParams();
@@ -14,7 +14,13 @@ export const BlogDetails = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleLike = () => {
-    // code to like the post
+    if (!liked) {
+      dispatch(likePost(id));
+      setLiked(true);
+    } else {
+      dispatch(unlikePost(id));
+      setLiked(false);
+    }
   };
 
   if (!post) {
