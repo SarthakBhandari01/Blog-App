@@ -3,14 +3,16 @@ import { BlogDetails } from "./pages/BlogDetails";
 import { Home } from "./pages/Home";
 import { NewBlog } from "./pages/NewBlog";
 import EditBlog from "./pages/EditBlog";
+import { NotFound } from "./pages/NotFound";
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/new" element={<NewBlog />} />
       <Route path="/:id" element={<BlogDetails />} />
       <Route path="/edit/:id" element={<EditBlog />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

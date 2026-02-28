@@ -5,6 +5,7 @@ import { useState } from "react";
 import { likePost, unlikePost, deletePost } from "../features/blogs/blogSlice";
 import ConfirmDialog from "../components/ConfirmDialog";
 import { useNotificationContext } from "../contexts/NotificationContext";
+import { NotFound } from "./NotFound";
 
 export const BlogDetails = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ export const BlogDetails = () => {
   };
 
   if (!post) {
-    return <div>Blog not found</div>;
+    return <NotFound />;
   }
   return (
     <div className="min-h-screen bg-white">
