@@ -12,18 +12,17 @@ export const BlogDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.blogs.posts);
+  const likedBlogs = useSelector((state) => state.blogs.likedBlogs || []);
   const post = posts.find((p) => p.id === id);
-  const [liked, setLiked] = useState(false);
+  const liked = likedBlogs.includes(id);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { showNotification } = useNotificationContext();
 
   const handleLike = () => {
     if (!liked) {
       dispatch(likePost(id));
-      setLiked(true);
     } else {
       dispatch(unlikePost(id));
-      setLiked(false);
     }
   };
 

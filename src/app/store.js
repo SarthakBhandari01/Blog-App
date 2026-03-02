@@ -20,7 +20,13 @@ const loadState = () => {
     if (serializedState === null) {
       return undefined; // Let Redux use initial state
     }
-    return JSON.parse(serializedState);
+    const loadedState = JSON.parse(serializedState);
+    // Ensure all required fields exist (for backward compatibility)
+    return {
+      posts: loadedState.posts || [],
+      searchTerm: "",
+      likedBlogs: loadedState.likedBlogs || [],
+    };
   } catch (error) {
     console.error("Failed to load state from localStorage:", error);
     return undefined;
@@ -32,7 +38,7 @@ export const store = configureStore({
     blogs: blogsReducer,
   },
   preloadedState: {
-    blogs: loadState() || { posts: [] },
+    blogs: loadState() || { posts: [], searchTerm: "", likedBlogs: [] },
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(localStorageMiddleware),

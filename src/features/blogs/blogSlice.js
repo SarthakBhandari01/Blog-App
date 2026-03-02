@@ -3,6 +3,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState = {
   posts: [],
   searchTerm: "",
+  likedBlogs: [],
 };
 
 export const blogSlice = createSlice({
@@ -37,6 +38,9 @@ export const blogSlice = createSlice({
       const existingPost = state.posts.find((post) => post.id === id);
       if (existingPost) {
         existingPost.likes += 1;
+        if (!state.likedBlogs.includes(id)) {
+          state.likedBlogs.push(id);
+        }
       }
     },
 
@@ -45,12 +49,14 @@ export const blogSlice = createSlice({
       const existingPost = state.posts.find((post) => post.id === id);
       if (existingPost && existingPost.likes > 0) {
         existingPost.likes -= 1;
+        state.likedBlogs = state.likedBlogs.filter((blogId) => blogId !== id);
       }
     },
 
     deletePost: (state, action) => {
       const id = action.payload;
       state.posts = state.posts.filter((post) => post.id !== id);
+      state.likedBlogs = state.likedBlogs.filter((blogId) => blogId !== id);
     },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
