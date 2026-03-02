@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
 import { BlogCard } from "../components/BlogCard";
+import { Pagination } from "../components/Pagination";
 import { Link } from "react-router-dom";
 import { PenSquare } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 export const Home = () => {
   const posts = useSelector((state) => state.blogs.posts);
   const searchTerm = useSelector((state) => state.blogs.searchTerm);
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 5;
 
   const filteredPosts = useMemo(() => {
     const query = searchTerm?.toLowerCase().trim();
@@ -21,6 +24,32 @@ export const Home = () => {
       );
     });
   }, [posts, searchTerm]);
+
+  // Reset to page 1 when search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  // Reset to last valid page if current page exceeds total pages
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
+  // Get current page's posts
+  const currentPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    return filteredPosts.slice(startIndex, endIndex);
+  }, [filteredPosts, currentPage]);
+
+  // Handle page change with scroll to top
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -61,11 +90,18 @@ export const Home = () => {
             <p className="text-gray-700">Try a different keyword.</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-200">
-            {filteredPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
-          </div>
+          <>
+            <div className="divide-y divide-gray-200">
+              {currentPosts.map((post) => (
+                <BlogCard key={post.id} post={post} />
+              ))}
+            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
         )}
       </div>
     </div>
