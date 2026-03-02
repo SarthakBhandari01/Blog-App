@@ -23,7 +23,7 @@ const Navbar = () => {
             to="/"
             className="text-2xl font-serif font-bold text-gray-900 hover:text-gray-600 transition-colors"
           >
-            Blogify
+            BlogApp
           </Link>
 
           <div className="flex items-center gap-6">
