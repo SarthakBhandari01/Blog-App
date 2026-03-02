@@ -2,6 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
+  searchTerm: "",
 };
 
 export const blogSlice = createSlice({
@@ -51,10 +52,19 @@ export const blogSlice = createSlice({
       const id = action.payload;
       state.posts = state.posts.filter((post) => post.id !== id);
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
 });
 
-export const { addPost, updatePost, likePost, unlikePost, deletePost } =
-  blogSlice.actions;
+export const {
+  addPost,
+  updatePost,
+  likePost,
+  unlikePost,
+  deletePost,
+  setSearchTerm,
+} = blogSlice.actions;
 
 export default blogSlice.reducer;

@@ -2,9 +2,25 @@ import { useSelector } from "react-redux";
 import { BlogCard } from "../components/BlogCard";
 import { Link } from "react-router-dom";
 import { PenSquare } from "lucide-react";
+import { useMemo } from "react";
 
 export const Home = () => {
   const posts = useSelector((state) => state.blogs.posts);
+  const searchTerm = useSelector((state) => state.blogs.searchTerm);
+
+  const filteredPosts = useMemo(() => {
+    const query = searchTerm?.toLowerCase().trim();
+    if (!query) return posts;
+
+    return posts.filter((post) => {
+      return (
+        post.title.toLowerCase().includes(query) ||
+        post.author.toLowerCase().includes(query) ||
+        post.category.toLowerCase().includes(query) ||
+        post.content.toLowerCase().includes(query)
+      );
+    });
+  }, [posts, searchTerm]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -19,7 +35,7 @@ export const Home = () => {
           </p>
         </div>
 
-        {/* Empty State */}
+        {/* Empty State / Filtered List */}
         {posts.length === 0 ? (
           <div className="text-center py-12">
             <PenSquare className="w-12 h-12 text-gray-300 mx-auto mb-6" />
@@ -37,10 +53,16 @@ export const Home = () => {
               Write a Blog
             </Link>
           </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="text-center py-12">
+            <h2 className="text-2xl font-serif font-semibold text-gray-800 mb-3">
+              No blogs found
+            </h2>
+            <p className="text-gray-700">Try a different keyword.</p>
+          </div>
         ) : (
-          /* Blog List */
           <div className="divide-y divide-gray-200">
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
               <BlogCard key={post.id} post={post} />
             ))}
           </div>
