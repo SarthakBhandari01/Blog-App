@@ -2,7 +2,7 @@
 
 A feature-rich blog post application built with React, Redux Toolkit, and Context API. Create, edit, delete, and like blog posts with a clean and responsive user interface.
 
-🔗 **Live Demo**: [Deployed Application URL - To be added after deployment]
+🔗 **Live Demo**: https://sarthak-blog-app-20a7a.web.app/
 
 ---
 
@@ -154,7 +154,7 @@ This application uses **both Redux and Context API** for state management, follo
 - **Provider**: [`src/contexts/NotificationContext.jsx`](src/contexts/NotificationContext.jsx)
 - **Toast Component**: [`src/components/Toast.jsx`](src/components/Toast.jsx)
   - Types: 'success', 'error', 'info'
-  - Fixed top-right positioning with smooth animations
+  - Fixed bottom-right positioning with smooth animations
 
 ---
 
@@ -171,7 +171,61 @@ This hybrid approach leverages the strengths of both Redux and Context API, avoi
 
 ---
 
-## 🐳 Deployment
+## 🚀 Deployment
+
+This application is deployed using **Firebase Hosting**, a fast and secure static hosting solution.
+
+### 🌐 Live Application
+
+🔗 **Live URL**: https://sarthak-blog-app-20a7a.web.app/
+
+---
+
+### 🔧 Deployment Strategy
+
+- Built using Vite (`npm run build`)
+- Production files generated in `dist/`
+- Hosted on Firebase Hosting
+- Single Page Application (SPA) routing enabled
+- Automatic rewrite to `/index.html` for React Router support
+
+---
+
+### 📦 One-Time Setup (Already Completed)
+
+1. Install Firebase CLI globally:
+
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. Login to Firebase:
+
+   ```bash
+   firebase login
+   ```
+
+3. Initialize Firebase in the project directory:
+
+   ```bash
+   firebase init
+   ```
+
+   - Select "Hosting" and choose the existing Firebase project
+   - Set `dist/` as the public directory
+   - Configure as a single-page app (rewrite all URLs to `index.html`)
+
+4. Build the application:
+
+   ```bash
+   npm run build
+   ```
+
+5. Deploy to Firebase:
+
+   ```bash
+   firebase deploy
+   ```
 
 ---
 
@@ -199,8 +253,11 @@ Blog-App/
 │   │   ├── Modal.jsx       # Reusable modal wrapper
 │   │   ├── Navbar.jsx      # Navigation bar component
 │   │   └── Toast.jsx       # Notification toast component
+│   │   └── Pagination.jsx  # Pagination controls for blog listing
+│   │
 │   ├── contexts/
 │   │   └── NotificationContext.jsx  # Context API for notifications
+│   |
 │   ├── features/
 │   │   └── blogs/
 │   │       └── blogSlice.js  # Redux slice for blog CRUD operations
