@@ -126,7 +126,6 @@ This application uses **both Redux and Context API** for state management, follo
 - Integrates with localStorage middleware for persistence
 - Redux DevTools enable powerful debugging capabilities
 - Handles complex CRUD operations systematically
-- Scales easily for future features like filtering and pagination
 
 **Implementation**:
 
@@ -233,7 +232,7 @@ This application is deployed using **Firebase Hosting**, a fast and secure stati
 
 1. **Client-Side Only** - All data stored in browser localStorage; no backend or database
 2. **No Authentication** - No user login system; anyone can create, edit, or delete posts
-3. **No User Tracking** - Like counts increment but don't persist per user; author is just text input
+3. **No User Tracking** - Author is just text input
 4. **Browser-Specific Data** - Data doesn't sync across devices or browsers
 
 ---
@@ -272,12 +271,11 @@ Blog-App/
 │   ├── index.css           # Tailwind CSS imports
 │   ├── main.jsx            # Application entry point
 │   └── Routes.jsx          # React Router configuration
-├── .dockerignore           # Docker ignore patterns
+├── firebase.json           # Firebase hosting configuration
 ├── .gitignore              # Git ignore patterns
-├── Dockerfile              # Docker containerization config
+├── firebaserc              # Firebase project aliases
 ├── eslint.config.js        # ESLint configuration
 ├── index.html              # HTML template
-├── nginx.conf              # Nginx configuration for production
 ├── package.json            # Dependencies and scripts
 ├── postcss.config.js       # PostCSS configuration
 ├── README.md               # Project documentation (this file)
