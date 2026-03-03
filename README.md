@@ -1,4 +1,4 @@
-# Blogify - Modern Blog Post Application
+# BlogApp - Modern Blog Post Application
 
 A feature-rich blog post application built with React, Redux Toolkit, and Context API. Create, edit, delete, and like blog posts with a clean and responsive user interface.
 
